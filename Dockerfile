@@ -9,11 +9,13 @@ RUN apt-get update && \
                   octave-control octave-image octave-io octave-optim octave-signal octave-statistics \
                   gnuplot && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
+    rm -rf /var/lib/apt/lists/* \
+    apt-get ghostscript
+ 
 USER $NB_USER
 
 RUN pip install octave_kernel
+COPY octavetest.ipynb /home/jovyan/work
 
 USER root
 
