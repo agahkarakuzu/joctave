@@ -10,15 +10,19 @@ RUN apt-get update && \
                   gnuplot && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* \
-    apt-get ghostscript
+    apt-get ghostscript \
+    apt-get nodejs \
+    apt-get npm\
+    apt-get autoconf
+   
+RUN npm install -g dat
  
 USER $NB_USER
 
-RUN pip install octave_kernel
 COPY octavetest.ipynb /home/jovyan/work
 
 USER root
-
+RUN pip install octave_kernel
 RUN python -m octave_kernel.install
 
 USER $NB_USER
