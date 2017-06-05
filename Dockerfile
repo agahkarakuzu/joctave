@@ -13,7 +13,8 @@ RUN apt-get update && \
     apt-get ghostscript \
     apt-get nodejs \
     apt-get npm\
-    apt-get autoconf
+    apt-get autoconf \
+    apt-get libfltk1.3-dev
    
 RUN npm install -g dat
  
