@@ -12,7 +12,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* \
     apt-get nodejs \
     apt-get npm\
-    apt-get autoconf 
+    apt-get autoconf \
+    apt-get graphicsmagick \
 
 RUN apt-get update && apt-get -y install ghostscript && apt-get clean
     
