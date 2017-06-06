@@ -31,7 +31,7 @@ RUN python -m octave_kernel.install
 
 RUN wget ftp://ftp.icm.edu.pl/pub/unix/graphics/GraphicsMagick/1.3/GraphicsMagick-1.3.25.tar.gz
 RUN tar -xvzf GraphicsMagick-1.3.25.tar.gz
-RUN cd GraphicsMagick-1.3.25.tar.gz 
+RUN cd GraphicsMagick-1.3.25
 RUN ./configure  --with-quantum-depth=16 --enable-shared --disable-static --with-magick-plus-plus=yes
 RUN make
 RUN make install
