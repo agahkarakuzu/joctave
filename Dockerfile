@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get ghostscript \
     apt-get nodejs \
     apt-get npm\
-    apt-get autoconf \
+    apt-get autoconf 
     
    
 RUN npm install -g dat
