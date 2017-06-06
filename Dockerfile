@@ -16,7 +16,7 @@ RUN apt-get update && \
 
 
 RUN apt-get update && apt-get -y install ghostscript && apt-get clean
-RUN apt-get -y install graphicsmagick \
+
     
    
 RUN npm install -g dat
