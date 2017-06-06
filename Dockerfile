@@ -13,9 +13,10 @@ RUN apt-get update && \
     apt-get nodejs \
     apt-get npm\
     apt-get autoconf \
-    apt-get graphicsmagick \
+
 
 RUN apt-get update && apt-get -y install ghostscript && apt-get clean
+RUN apt-get -y install graphicsmagick \
     
    
 RUN npm install -g dat
