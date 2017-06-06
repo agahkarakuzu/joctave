@@ -10,10 +10,11 @@ RUN apt-get update && \
                   gnuplot && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* \
-    apt-get ghostscript \
     apt-get nodejs \
     apt-get npm\
     apt-get autoconf 
+
+RUN apt-get update && apt-get -y install ghostscript && apt-get clean
     
    
 RUN npm install -g dat
@@ -25,6 +26,5 @@ COPY octavetest.ipynb /home/jovyan/work
 USER root
 RUN pip install octave_kernel
 RUN python -m octave_kernel.install
-RUN conda install -y ipywidgets
 
 USER $NB_USER
