@@ -34,6 +34,6 @@ RUN tar -xvzf GraphicsMagick-1.3.25.tar.gz
 RUN cd GraphicsMagick-1.3.25; ./configure  --with-quantum-depth=16 --enable-shared --disable-static --with-magick-plus-plus=yes; make; make install
  
 
-cd $HOME 
+
 
 USER $NB_USER
