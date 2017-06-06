@@ -32,22 +32,22 @@ RUN python -m octave_kernel.install
 RUN wget ftp://ftp.icm.edu.pl/pub/unix/graphics/GraphicsMagick/1.3/GraphicsMagick-1.3.25.tar.gz
 RUN tar -xvzf GraphicsMagick-1.3.25.tar.gz
 
-RUN cd GraphicsMagick-1.3.25; 
-    ./configure  --with-quantum-depth=16 --enable-shared --disable-static --with-magick-plus-plus=yes; 
-    make; 
-    make install; 
-    cd /usr/local/include; 
+RUN cd GraphicsMagick-1.3.25; \
+    ./configure  --with-quantum-depth=16 --enable-shared --disable-static --with-magick-plus-plus=yes; \
+    make; \
+    make install; \
+    cd /usr/local/include; \
     find GraphicsMagick/ -type d | xargs sudo chmod 755
 
 RUN apt-get install -y gfortran
 RUN apt-get install -y libpcre3 libpcre3-dev
 
-RUN cd $HOME; 
-    wget https://ftp.gnu.org/gnu/octave/octave-3.8.2.tar.gz; 
-    tar -xvzf octave-3.8.2.tar.gz; 
-    cd octave-3.8.2; 
-    ./configure;
-    make;
+RUN cd $HOME; \
+    wget https://ftp.gnu.org/gnu/octave/octave-3.8.2.tar.gz; \
+    tar -xvzf octave-3.8.2.tar.gz; \
+    cd octave-3.8.2; \
+    ./configure; \
+    make; \
     make install
 
 
