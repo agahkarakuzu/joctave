@@ -2,7 +2,7 @@ FROM jupyter/scipy-notebook:latest
 
 USER root
 
-RUN  echo "START"
+RUN  echo "START"; \
      apt-get update && \
      apt-get install -y software-properties-common
 
