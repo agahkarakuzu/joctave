@@ -54,7 +54,7 @@ RUN cd GraphicsMagick-1.3.25; \
 
 RUN apt-get install -y gfortran; \
     apt-get install -y libpcre3 libpcre3-dev; \
-    export FFLAGS="-ff2c"
+
 
 # Build octave 
 
@@ -62,6 +62,7 @@ RUN cd $HOME; \
     wget https://ftp.gnu.org/gnu/octave/octave-3.8.2.tar.gz; \
     tar -xvzf octave-3.8.2.tar.gz; \
     cd octave-3.8.2; \
+    export FFLAGS="-ff2c"; \
     ./configure; \
     make; \
     make install
