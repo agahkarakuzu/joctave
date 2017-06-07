@@ -55,6 +55,7 @@ RUN cd GraphicsMagick-1.3.25; \
 RUN apt-get install -y libpcre3 libpcre3-dev; \
     apt-get install -y qhull-bin; \ 
     apt-get install -y software-properties-common;\
+    apt-get install -y aptitude;\
     aptitude build-dep octave; \
     apt-get install -y libgl1-mesa-dev libglu1-mesa-dev; \
     aptitude install gcc-4.5 gfortran-4.5 g++-4.5; \
