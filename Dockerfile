@@ -2,10 +2,11 @@ FROM jupyter/scipy-notebook:latest
 
 USER root
 
+RUN apt-get install -y software-properties-common; \
+    apt-add-repository ppa:octave/stable
+
 # Install octave and gnuplot
-RUN apt-get install -y software-properties-common && \
-    apt-add-repository ppa:octave/stable; \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
                   octave \
                   octave-control octave-image octave-io octave-optim octave-signal octave-statistics \
