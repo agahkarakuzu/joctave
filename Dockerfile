@@ -4,12 +4,14 @@ USER root
 
 # Install octave and gnuplot
 RUN apt-get update && \
+    apt-add-repository ppa:octave/stable \
     apt-get install -y --no-install-recommends \
                   octave \
                   octave-control octave-image octave-io octave-optim octave-signal octave-statistics \
                   gnuplot && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* \
+    apt-get build-dep octave
     apt-get nodejs \
     apt-get npm\
     apt-get autoconf \
@@ -40,9 +42,7 @@ RUN cd GraphicsMagick-1.3.25; \
     find GraphicsMagick/ -type d | xargs sudo chmod 755
 
 RUN apt-get install -y gfortran
-RUN apt-get install -y yum;\
-    yum install yum-utils; \
-    yum-builddep octave
+
 
 RUN cd $HOME; \
     wget https://ftp.gnu.org/gnu/octave/octave-3.8.2.tar.gz; \
