@@ -54,6 +54,7 @@ RUN cd GraphicsMagick-1.3.25; \
 
 RUN apt-get install -y gfortran; \
     apt-get install -y libpcre3 libpcre3-dev; \
+    export FFLAGS="-ff2c"
 
 # Build octave 
 
