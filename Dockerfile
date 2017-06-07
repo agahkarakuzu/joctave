@@ -41,6 +41,7 @@ RUN cd GraphicsMagick-1.3.25; \
 
 RUN apt-get install -y gfortran
 RUN apt-get install -y yum;\
+    yum install yum-utils; \
     yum-builddep octave
 
 RUN cd $HOME; \
