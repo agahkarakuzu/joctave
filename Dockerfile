@@ -56,7 +56,10 @@ RUN apt-get install -y gfortran; \
     apt-get install -y libpcre3 libpcre3-dev; \
     apt-get install -y qhull-bin; \ 
     apt-get install -y software-properties-common;\
-    add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ saucy universe multiverse";\
+    echo "deb-src http://archive.ubuntu.com/ubuntu trusty main restricted #Added by software-properties" | tee -a /etc/apt/sources.list;\
+    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
+    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-updates restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
+    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
     apt-get build-dep octave 
 
 
