@@ -2,16 +2,6 @@ FROM jupyter/scipy-notebook:latest
 
 USER root
 
-RUN  echo "START"; \
-     apt-get update && \
-     apt-get install -y software-properties-common
-
-RUN add-apt-repository --remove ppa:octave/stable; \
-    apt-get update
-
-RUN apt-add-repository ppa:octave/stable
-
-RUN echo "passed"
 
 # Install octave and gnuplot
 RUN apt-get update && \
