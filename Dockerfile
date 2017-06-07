@@ -11,6 +11,8 @@ RUN add-apt-repository --remove ppa:octave/stable; \
 
 RUN apt-add-repository ppa:octave/stable
 
+RUN echo "passed"
+
 # Install octave and gnuplot
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -19,7 +21,7 @@ RUN apt-get update && \
                   gnuplot && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* \
-    apt-get build-dep octave
+    apt-get build-dep octave \
     apt-get nodejs \
     apt-get npm\
     apt-get autoconf \
