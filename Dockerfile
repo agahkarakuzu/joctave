@@ -5,7 +5,6 @@ USER root
 RUN  apt-get update && \
      apt-get install -y software-properties-common
 
-COPY ppa-remove /usr/bin
 RUN  chmod +x ppa-remove; \
      ppa-remove 
 
