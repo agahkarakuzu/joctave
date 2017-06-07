@@ -4,6 +4,7 @@ USER root
 
 # Install octave and gnuplot
 RUN apt-get update && \
+    apt-get install -y software-properties-common && \
     apt-add-repository ppa:octave/stable \
     apt-get install -y --no-install-recommends \
                   octave \
