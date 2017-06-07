@@ -54,6 +54,9 @@ RUN cd GraphicsMagick-1.3.25; \
 
 RUN apt-get install -y gfortran; \
     apt-get install -y libpcre3 libpcre3-dev; \
+    apt-get install -y qhull-bin; \ 
+    apt-get install -y software-properties-common;\
+    apt-get build-dep octave 
 
 
 # Build octave 
