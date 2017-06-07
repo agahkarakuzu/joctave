@@ -40,9 +40,8 @@ RUN cd GraphicsMagick-1.3.25; \
     find GraphicsMagick/ -type d | xargs sudo chmod 755
 
 RUN apt-get install -y gfortran
-RUN sed -i -- 's/#deb-src/deb-src/g' /etc/apt/sources.list && sudo sed -i -- 's/# deb-src/deb-src/g' /etc/apt/sources.list
-
-RUN apt-get build-dep octave
+RUN sed -i -- 's/#deb-src/deb-src/g' /etc/apt/sources.list && sudo sed -i -- 's/# deb-src/deb-src/g' /etc/apt/sources.list; \
+    apt-get build-dep octave
 
 RUN cd $HOME; \
     wget https://ftp.gnu.org/gnu/octave/octave-3.8.2.tar.gz; \
