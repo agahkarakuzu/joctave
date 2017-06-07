@@ -2,11 +2,9 @@ FROM jupyter/scipy-notebook:latest
 
 USER root
 
-RUN  apt-get update && \
+RUN  echo "START"
+     apt-get update && \
      apt-get install -y software-properties-common
-
-RUN  chmod +x ppa-remove; \
-     ppa-remove 
 
 RUN apt-add-repository ppa:octave/stable
 
