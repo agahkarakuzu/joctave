@@ -3,9 +3,9 @@ FROM jupyter/scipy-notebook:latest
 USER root
 
 # Install octave and gnuplot
-RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    apt-add-repository ppa:octave/stable \
+RUN apt-get install -y software-properties-common && \
+    apt-add-repository ppa:octave/stable; \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
                   octave \
                   octave-control octave-image octave-io octave-optim octave-signal octave-statistics \
