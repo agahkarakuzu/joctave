@@ -6,6 +6,9 @@ RUN  echo "START"; \
      apt-get update && \
      apt-get install -y software-properties-common
 
+RUN add-apt-repository --remove ppa:octave/stable; \
+    apt-get update
+
 RUN apt-add-repository ppa:octave/stable
 
 # Install octave and gnuplot
