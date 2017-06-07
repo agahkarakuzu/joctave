@@ -52,21 +52,16 @@ RUN cd GraphicsMagick-1.3.25; \
 
 # After building GM, octave must be built once again. Below are some dependencies for this particular base 
 
-RUN apt-get install -y gfortran; \
-    apt-get install -y libpcre3 libpcre3-dev; \
+RUN apt-get install -y libpcre3 libpcre3-dev; \
     apt-get install -y qhull-bin; \ 
     apt-get install -y software-properties-common;\
-    echo "deb-src http://archive.ubuntu.com/ubuntu trusty main restricted #Added by software-properties" | tee -a /etc/apt/sources.list;\
-    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
-    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-updates restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
-    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
-    echo "deb-src http://security.ubuntu.com/ubuntu trusty-security restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
-    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-proposed restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
-
-
-
-    apt-get build-dep octave 
-
+    aptitude build-dep octave; \
+    apt-get install -y libgl1-mesa-dev libglu1-mesa-dev; \
+    aptitude install gcc-4.5 gfortran-4.5 g++-4.5; \
+    mv /usr/bin/gfortran /usr/bin/gfortran.ORG; \
+    ln -s /usr/bin/gfortran-4.5 /usr/bin/gfortran; \
+    export CC=/usr/bin/gcc-4.5; \ 
+    export CXX=/usr/bin/g++-4.5
 
 # Build octave 
 
