@@ -60,6 +60,11 @@ RUN apt-get install -y gfortran; \
     echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
     echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-updates restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
     echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
+    echo "deb-src http://security.ubuntu.com/ubuntu trusty-security restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
+    echo "deb-src http://gb.archive.ubuntu.com/ubuntu/ trusty-proposed restricted main universe multiverse #Added by software-properties" | tee -a /etc/apt/sources.list;\
+
+
+
     apt-get build-dep octave 
 
 
