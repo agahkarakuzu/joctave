@@ -55,7 +55,7 @@ RUN cd $HOME; \
 
 # Octave add some packages 
 
-RUN apt-get install -y octave-io octave-statistics octave-image octave-optim 
+# RUN apt-get install -y octave-io octave-statistics octave-image octave-optim 
 
 # Install kernels for jupyter notebook
 
