@@ -4,7 +4,7 @@ USER root
 
 
 RUN apt-get update; \
-    apt-get install -y --no-install-recommends octave;\
+    #apt-get install -y --no-install-recommends octave;\
     apt-get install -y nodejs; \
     apt-get install -y npm; \
     apt-get install -y autoconf
@@ -41,7 +41,7 @@ RUN apt-get install -y bzip2 libpng-dev libjpeg62 libjasper1 libc6 libice6  libb
 # After building GM, octave must be built manually. Below are the dependencies for Octave
 
 
-RUN apt-get install -y gcc g++ gfortran libblas-dev liblapack-dev libpcre3-dev libarpack2-dev libcurl4-gnutls-dev epstool libfftw3-dev transfig libfltk1.3-dev libfontconfig1-dev libfreetype6-dev libgl2ps-dev libglpk-dev libreadline-dev gnuplot libhdf5-serial-dev openjdk-7-jdk libsndfile1-dev llvm-dev lpr texinfo libgl1-mesa-dev libosmesa6-dev pstoedit portaudio19-dev libqhull-dev libqrupdate-dev libqscintilla2-dev libqt4-dev libqtcore4 libqtwebkit4 libqt4-network libqtgui4 libqt4-opengl-dev libsuitesparse-dev texlive libxft-dev zlib1g-dev automake bison flex gperf gzip icoutils librsvg2-bin libtool perl rsync tar
+#RUN apt-get install -y gcc g++ gfortran libblas-dev liblapack-dev libpcre3-dev libarpack2-dev libcurl4-gnutls-dev epstool libfftw3-dev transfig libfltk1.3-dev libfontconfig1-dev libfreetype6-dev libgl2ps-dev libglpk-dev libreadline-dev gnuplot libhdf5-serial-dev openjdk-7-jdk libsndfile1-dev llvm-dev lpr texinfo libgl1-mesa-dev libosmesa6-dev pstoedit portaudio19-dev libqhull-dev libqrupdate-dev libqscintilla2-dev libqt4-dev libqtcore4 libqtwebkit4 libqt4-network libqtgui4 libqt4-opengl-dev libsuitesparse-dev texlive libxft-dev zlib1g-dev automake bison flex gperf gzip icoutils librsvg2-bin libtool perl rsync tar
 
 # Build octave 
 
@@ -58,6 +58,8 @@ RUN cd $HOME; \
 # RUN apt-get install -y octave-io octave-statistics octave-image octave-optim 
 
 # Install kernels for jupyter notebook
+
+RUN apt-get install -y --no-install-recommends libmagick++-dev
 
 RUN pip install octave_kernel
 RUN python -m octave_kernel.install
