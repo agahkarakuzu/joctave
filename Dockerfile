@@ -4,9 +4,9 @@ USER root
 
 
 RUN apt-get update; \
-    apt-get nodejs; \
-    apt-get npm; \
-    apt-get autoconf
+    apt-get install -y nodejs; \
+    apt-get install -y npm; \
+    apt-get install -y autoconf
 
 
 RUN apt-get update && apt-get -y install ghostscript && apt-get clean
