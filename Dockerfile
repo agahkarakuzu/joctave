@@ -4,6 +4,7 @@ USER root
 
 
 RUN apt-get update; \
+    apt-get install -y --no-install-recommends octave;\
     apt-get install -y nodejs; \
     apt-get install -y npm; \
     apt-get install -y autoconf
@@ -26,7 +27,7 @@ RUN cd $HOME; \
 
 RUN cd $HOME/GraphicsMagick-1.3.25; \
     ./configure  --with-quantum-depth=16 --enable-shared --disable-static --with-magick-plus-plus=yes; \
-    make -j3; \
+    make -j4; \
     make install; \
     cd /usr/local/include; \
     find GraphicsMagick/ -type d | xargs sudo chmod 755
@@ -49,12 +50,12 @@ RUN cd $HOME; \
     tar -xvzf octave-3.8.2.tar.gz; \
     cd octave-3.8.2; \
     ./configure LD_LIBRARY_PATH=/opt/OpenBLAS/lib CPPFLAGS=-I/opt/OpenBLAS/include LDFLAGS=-L/opt/OpenBLAS/lib --enable-64; \
-    make -j3; \
+    make -j4; \
     make install
 
 # Octave add some packages 
 
-RUN apt-get install -y octave-image octave-io octave-optim octave-statistics
+RUN apt-get install -y octave-io octave-statistics octave-image octave-optim 
 
 # Install kernels for jupyter notebook
 
