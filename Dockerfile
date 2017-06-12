@@ -47,7 +47,7 @@ RUN cd $HOME; \
     wget https://ftp.gnu.org/gnu/octave/octave-4.2.1.tar.gz; \
     tar -xvzf octave-4.2.1.tar.gz; \
     cd octave-4.2.1; \
-    ./configure LD_LIBRARY_PATH=/opt/OpenBLAS/lib CPPFLAGS=-I/opt/OpenBLAS/include LDFLAGS=-L/opt/OpenBLAS/lib --enable-64; \
+    ./configure LD_LIBRARY_PATH=/opt/OpenBLAS/lib CPPFLAGS=-I/opt/OpenBLAS/include LDFLAGS=-L/opt/OpenBLAS/lib; \
     make -j4; \
     make install
 
