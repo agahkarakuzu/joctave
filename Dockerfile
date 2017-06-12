@@ -18,6 +18,8 @@ RUN apt-get update && apt-get -y install ghostscript && apt-get clean
 
 # Plan-B use Zonodo links, wget. 
 
+RUN apt-get install -y bzip2 libpng-dev libjpeg62 libjasper1 libc6 libice6  libbz2-1.0 libfreetype6 libgomp1 libtiff5
+
 
 # Fetch and extract Graphsmagick 
 
