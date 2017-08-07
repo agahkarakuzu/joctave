@@ -66,7 +66,7 @@ RUN apt-get install -y liboctave2
 RUN pip install octave_kernel
 RUN python -m octave_kernel.install
 
-RUN apt-get install -y libgdcm-tools
+#RUN apt-get install -y libgdcm-tools
 
 USER $NB_USER
 
@@ -80,12 +80,11 @@ COPY ReadFrame.tar.gz $HOME/work
 COPY initPackages.m $HOME/work
 COPY setNifti.m $HOME/work
 
-RUN cd $HOME; \
+USER root
+
+RUN cd $HOME/work; \
     octave initPackages.m; \
     octave setNifti.m 
 
-
-
-
-
+USER $NB_USER
 
