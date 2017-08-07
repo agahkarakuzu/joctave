@@ -80,8 +80,8 @@ COPY ReadFrame.tar.gz $HOME/work
 COPY initPackages.m $HOME/work
 COPY setNifti.m $HOME/work
 
-RUN octave initPackages.m
-RUN octave setNifti.m 
+#RUN octave initPackages.m
+#RUN octave setNifti.m 
 
 
 
