@@ -66,12 +66,25 @@ RUN apt-get install -y liboctave2
 RUN pip install octave_kernel
 RUN python -m octave_kernel.install
 
+RUN apt-get install -y libgdcm-tools
 
 USER $NB_USER
 
 # Copy files from github to work dir 
 
-COPY mainBook.ipynb $HOME/work
+COPY MTRDemo.ipynb $HOME/work
+COPY README.ipynb $HOME/work
+COPY demoMTR.mat $HOME/work
+COPY lgnPlot.ipynb $HOME/work
+COPY ReadFrame.tar.gz $HOME/work
+COPY initPackages.m $HOME/work
+COPY setNifti.m $HOME/work
+
+RUN octave initPackages.m
+RUN octave setNifti.m 
+
+
+
 
 
 
