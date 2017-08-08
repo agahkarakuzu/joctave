@@ -1,72 +1,93 @@
-FROM simexp/minc-toolkit:1.9.2
-MAINTAINER Pierre Bellec <pierre.bellec@criugm.qc.ca>
+FROM jupyter/scipy-notebook:latest
 
-# Update repository list
-RUN apt-get update
-RUN apt-get install python-software-properties dpkg-dev -y
-RUN apt-get update
-RUN apt-get install --fix-missing
+USER root
 
-RUN wget --directory-prefix=/local_repo/octave \
-  https://launchpad.net/~octave/+archive/ubuntu/stable/+build/5921916/+files/liboctave2_3.8.1-1ubuntu1~octave1~precise1_amd64.deb \
-  https://launchpad.net/~octave/+archive/ubuntu/stable/+build/5921916/+files/octave_3.8.1-1ubuntu1~octave1~precise1_amd64.deb \
-  https://launchpad.net/~octave/+archive/ubuntu/stable/+build/5921916/+files/liboctave-dev_3.8.1-1ubuntu1~octave1~precise1_amd64.deb \
-  https://launchpad.net/~octave/+archive/ubuntu/stable/+build/5921916/+files/octave-dbg_3.8.1-1ubuntu1~octave1~precise1_amd64.deb \
-  https://launchpad.net/~octave/+archive/ubuntu/stable/+files/octave-common_3.8.1-1ubuntu1~octave1~precise1_all.deb \
-  https://launchpad.net/~octave/+archive/ubuntu/stable/+files/octave-doc_3.8.1-1ubuntu1~octave1~precise1_all.deb \
-  https://launchpad.net/~octave/+archive/ubuntu/stable/+files/octave-info_3.8.1-1ubuntu1~octave1~precise1_all.deb
 
-RUN cd /local_repo/octave && dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
+RUN apt-get update; \
+    #apt-get install -y --no-install-recommends octave;\
+    apt-get install -y nodejs; \
+    apt-get install -y npm; \
+    apt-get install -y autoconf
 
-RUN echo "deb [arch=amd64] file:/local_repo/octave ./" >> /etc/apt/sources.list
 
-RUN apt-get update
+RUN apt-get update && apt-get -y install ghostscript && apt-get clean
 
-# Install octave
-RUN apt-get install --force-yes -y \
-  bison \
-  build-essential \
-  cmake \
-  cmake-curses-gui \
-  flex \  
-  g++ \
-  imagemagick \
-  libxi-dev \
-  libxi6 \
-  libxmu-dev \
-  libxmu-headers \
-  libxmu6 \  
-  unzip \
-  graphviz \
-  xpdf \
-  liboctave-dev 
-  
+# Install DAT distributed data sharing
 
-# Fetch Octave forge packages
-RUN mkdir /home/octave
-RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/control-2.8.0.tar.gz -P /home/octave
-RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/general-1.3.4.tar.gz -P /home/octave
-RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/signal-1.3.0.tar.gz -P /home/octave
-RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/image-2.2.2.tar.gz -P /home/octave
-RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/io-2.0.2.tar.gz -P /home/octave
-RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/statistics-1.2.4.tar.gz -P /home/octave
+#RUN npm install -g dat
+
+# Plan-B use Zonodo links, wget. 
+
+RUN apt-get install -y bzip2 libpng-dev libjpeg-dev libjasper-dev libbz2-dev libfreetype6 libgomp1 libtiff-dev
+
+
+# Fetch and extract Graphsmagick 
+
+RUN cd $HOME; \
+    wget ftp://ftp.icm.edu.pl/pub/unix/graphics/GraphicsMagick/1.3/GraphicsMagick-1.3.25.tar.gz; \
+    tar -xvzf GraphicsMagick-1.3.25.tar.gz
+
+# Build Graphsmagick with 16-bit levels
+
+RUN cd $HOME/GraphicsMagick-1.3.25; \
+    ./configure  --with-quantum-depth=16 --enable-shared --disable-static --with-magick-plus-plus=yes --with-png=yes --with-tiff=yes --with-jpeg=yes --with-jp2=yes --with-dot=yes --with-jbig=yes; \
+    make -j4; \
+    make install; \
+    cd /usr/local/include; \
+    find GraphicsMagick/ -type d | xargs sudo chmod 755
+
+
+
+# After building GM, octave must be built manually. Below are the dependencies for Octave
+
+
+RUN apt-get install -y gcc g++ gfortran libblas-dev liblapack-dev libpcre3-dev libarpack2-dev libcurl4-gnutls-dev epstool libfftw3-dev transfig libfltk1.3-dev libfontconfig1-dev libfreetype6-dev libgl2ps-dev libglpk-dev libreadline-dev gnuplot libhdf5-serial-dev openjdk-7-jdk libsndfile1-dev llvm-dev lpr texinfo libgl1-mesa-dev libosmesa6-dev pstoedit portaudio19-dev libqhull-dev libqrupdate-dev libqscintilla2-dev libqt4-dev libqtcore4 libqtwebkit4 libqt4-network libqtgui4 libqt4-opengl-dev libsuitesparse-dev texlive libxft-dev zlib1g-dev automake bison flex gperf gzip icoutils librsvg2-bin libtool perl rsync tar
+
+# Build octave 
+
+RUN cd $HOME; \
+    wget https://ftp.gnu.org/gnu/octave/octave-4.2.1.tar.gz; \
+    tar -xvzf octave-4.2.1.tar.gz; \
+    cd octave-4.2.1; \
+    ./configure LD_LIBRARY_PATH=/opt/OpenBLAS/lib CPPFLAGS=-I/opt/OpenBLAS/include LDFLAGS=-L/opt/OpenBLAS/lib; \
+    make -j4; \
+    make install
+
+RUN apt-get install -y liboctave2
+RUN apt-get install -y libgdcm-tools
+
+# Octave add some packages 
+
+RUN mkdir /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/control-3.0.0.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/general-2.0.0.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/signal-1.3.2.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/image-2.6.1.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/io-2.4.7.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/statistics-1.3.0.tar.gz -P /home/packages
 
 # Install Octave forge packages
-RUN octave --eval "cd /home/octave; \
+RUN octave --eval "cd /home/packages; \
                    more off; \
-                   pkg install -auto -global -verbose \
-                   control-2.8.0.tar.gz \
-                   general-1.3.4.tar.gz \
-                   signal-1.3.0.tar.gz \
-                   image-2.2.2.tar.gz \
-                   io-2.0.2.tar.gz \
-                   statistics-1.2.4.tar.gz"
+                   pkg install \
+                   general-2.0.0.tar.gz \
+                   io-2.4.7.tar.gz \
+                   control-3.0.0.tar.gz \
+                   signal-1.3.2.tar.gz \
+                   image-2.6.1.tar.gz \
+                   statistics-1.3.0.tar.gz"
 
-# Build octave configure file
-RUN echo more off >> /etc/octave.conf
-RUN echo save_default_options\(\'-7\'\)\; >> /etc/octave.conf
-RUN echo graphics_toolkit gnuplot >> /etc/octave.conf
 
+
+
+RUN pip install octave_kernel
+RUN python -m octave_kernel.install
+
+
+
+USER $NB_USER
+
+# Copy files from github to work dir 
 
 COPY MTRDemo.ipynb $HOME/work
 COPY README.ipynb $HOME/work
@@ -75,6 +96,11 @@ COPY lgnPlot.ipynb $HOME/work
 COPY ReadFrame.tar.gz $HOME/work
 COPY initPackages.m $HOME/work
 COPY setNifti.m $HOME/work
+
+
+RUN cd $HOME/work
+
+
 
 
 
