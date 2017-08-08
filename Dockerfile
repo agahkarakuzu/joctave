@@ -54,7 +54,7 @@ RUN cd $HOME; \
     make install
 
 RUN apt-get install -y liboctave2
-RUN apt-get install -y libgdcm-tools
+#RUN apt-get install -y libgdcm-tools
 
 # Octave add some packages 
 
