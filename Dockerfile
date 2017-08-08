@@ -66,7 +66,7 @@ RUN apt-get install -y liboctave2
 RUN pip install octave_kernel
 RUN python -m octave_kernel.install
 
-#RUN apt-get install -y libgdcm-tools
+RUN apt-get install -y libgdcm-tools
 
 USER $NB_USER
 
@@ -80,11 +80,9 @@ COPY ReadFrame.tar.gz $HOME/work
 COPY initPackages.m $HOME/work
 COPY setNifti.m $HOME/work
 
-USER root
 
-RUN cd $HOME/work; \
-    octave initPackages.m; \
-    octave setNifti.m 
+RUN octave --eval "cd /home/jovyan/work; \
+                   disp('SHOW SHOW SHOW'); \
+                   setNifti"
 
-USER $NB_USER
 
