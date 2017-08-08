@@ -82,9 +82,8 @@ RUN octave --eval "cd /home/packages; \
                    struct-1.0.14.tar.gz\
                    optim-1.5.2.tar.gz\
                    statistics-1.3.0.tar.gz;\
-                   try \
-                   pkg install dicom-0.2.0.tar.gz\
-                   end"
+                   dicom-0.2.0.tar.gz"
+
 
 
 
