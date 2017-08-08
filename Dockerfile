@@ -54,7 +54,7 @@ RUN cd $HOME; \
     make install
 
 RUN apt-get install -y liboctave2
-#RUN apt-get install -y libgdcm-tools
+RUN apt-get install -y libgdcm-tools
 
 # Octave add some packages 
 
@@ -65,6 +65,8 @@ RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/
 RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/image-2.6.1.tar.gz -P /home/packages
 RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/io-2.4.7.tar.gz -P /home/packages
 RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/statistics-1.3.0.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/struct-1.0.14.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/optim-1.5.2.tar.gz -P /home/packages
 
 # Install Octave forge packages
 RUN octave --eval "cd /home/packages; \
@@ -75,7 +77,16 @@ RUN octave --eval "cd /home/packages; \
                    control-3.0.0.tar.gz \
                    signal-1.3.2.tar.gz \
                    image-2.6.1.tar.gz \
-                   statistics-1.3.0.tar.gz"
+                   struct-1.0.14.tar.gz\
+                   optim-1.5.2.tar.gz\
+                   statistics-1.3.0.tar.gz;\
+                   curdir = pwd;\
+                   unix('tar -xvf /home/jovyan/work/ReadFrame.tar.gz');\
+                   cd('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame');\
+                   mex('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame/mlpipe/mlpmex.c');\
+                   addpath('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame/mlpipe');\
+                   addpath('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame/Nifti');\
+                   cd(curdir);"
 
 
 
