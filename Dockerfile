@@ -67,6 +67,8 @@ RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/
 RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/statistics-1.3.0.tar.gz -P /home/packages
 RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/struct-1.0.14.tar.gz -P /home/packages
 RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/optim-1.5.2.tar.gz -P /home/packages
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/dicom-0.2.0.tar.gz -P /home/packages
+
 
 # Install Octave forge packages
 RUN octave --eval "cd /home/packages; \
@@ -80,13 +82,9 @@ RUN octave --eval "cd /home/packages; \
                    struct-1.0.14.tar.gz\
                    optim-1.5.2.tar.gz\
                    statistics-1.3.0.tar.gz;\
-                   curdir = pwd;\
-                   unix('tar -xvf /home/jovyan/work/ReadFrame.tar.gz');\
-                   cd('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame');\
-                   mex('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame/mlpipe/mlpmex.c');\
-                   addpath('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame/mlpipe');\
-                   addpath('/home/jovyan/work/Users/Agah/Desktop/OctaveJN/ReadFrame/Nifti');\
-                   cd(curdir);"
+                   try \
+                   pkg install dicom-0.2.0.tar.gz\
+                   end"
 
 
 
@@ -105,7 +103,6 @@ COPY README.ipynb $HOME/work
 COPY demoMTR.mat $HOME/work
 COPY lgnPlot.ipynb $HOME/work
 COPY ReadFrame.tar.gz $HOME/work
-COPY initPackages.m $HOME/work
 COPY setNifti.m $HOME/work
 
 
