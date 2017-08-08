@@ -81,7 +81,7 @@ RUN octave --eval "cd /home/packages; \
                    image-2.6.1.tar.gz \
                    struct-1.0.14.tar.gz\
                    optim-1.5.2.tar.gz\
-                   statistics-1.3.0.tar.gz;\
+                   statistics-1.3.0.tar.gz\
                    dicom-0.2.0.tar.gz"
 
 
