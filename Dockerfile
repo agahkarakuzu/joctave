@@ -54,7 +54,7 @@ RUN cd $HOME; \
     make install
 
 RUN apt-get install -y liboctave2
-RUN apt-get install -y libgdcm-tools
+#RUN apt-get install -y libgdcm-tools
 
 # Octave add some packages 
 
@@ -81,8 +81,8 @@ RUN octave --eval "cd /home/packages; \
                    image-2.6.1.tar.gz \
                    struct-1.0.14.tar.gz\
                    optim-1.5.2.tar.gz\
-                   statistics-1.3.0.tar.gz\
-                   dicom-0.2.0.tar.gz"
+                   statistics-1.3.0.tar.gz"
+
 
 
 
